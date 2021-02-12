@@ -19,6 +19,8 @@ connectDb();
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Routes
+
+//GET request
 app.get('/', (request, response) => {
     User.find({}, 'username name email')
         .then((result) => {
@@ -29,6 +31,24 @@ app.get('/', (request, response) => {
         });
 });
 
+app.get('/:user', (request, response) => {
+    //Query the user
+    const { user } = request.params;
+    User.findOne({ username: user })
+        .then((result) => {
+            //Verify if any user was found
+            if(!result) {
+                response.send(`${user} was not found`);
+            } else {
+                response.json(result);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+});
+
+//POST request
 app.post('/', (request, response) => {
 
     const { name, username, email, password } = request.body;
@@ -70,10 +90,6 @@ app.post('/', (request, response) => {
         .catch((error) => {
             console.error(error);
         });
-
-
-    //console.log(newUser);
-    //response.send('Post request');
 });
 
 app.listen(PORT, () => {
