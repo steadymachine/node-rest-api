@@ -20,7 +20,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Routes
 app.get('/', (request, response) => {
-    response.send('Get request');
+    User.find({}, 'username name email')
+        .then((result) => {
+            response.json(result); 
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 });
 
 app.post('/', (request, response) => {
