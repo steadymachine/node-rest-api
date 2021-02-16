@@ -4,6 +4,7 @@ const connectDb = require('./config/db');
 const bodyParser = require('body-parser');
 
 const User = require('./models/User');
+const { request, response } = require('express');
 
 
 dotenv.config({ path: './config/config.env' });
@@ -101,7 +102,19 @@ app.put('/', (request, response) => {
         })
         .catch((error) => {
             console.error(error);
+        });
+});
+
+//DELETE request
+app.delete('/', (request, response) => {
+    const { username } = request.body;
+    User.deleteOne({ username })
+        .then((user) => {
+            response.send(`${user} has been removed completely from the database`);
         })
+        .catch((error) => {
+            console.error(error);
+        });
 });
 
 app.listen(PORT, () => {
