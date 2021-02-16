@@ -92,6 +92,18 @@ app.post('/', (request, response) => {
         });
 });
 
+//PUT request
+app.put('/', (request, response) => {
+    const { name, username, email, password } = request.body;
+    User.updateOne({ username }, {name, email, password})
+        .then((user) => {
+            response.send(`${username} has been updated`)
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+});
+
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`)
+    console.log(`Server running at http://localhost:${PORT}`);
 })
