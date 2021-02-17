@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 
 //GET request
-app.get('/', (request, response) => {
+app.get('/api', (request, response) => {
     User.find({}, 'username name email')
         .then((result) => {
             response.json(result); 
@@ -32,7 +32,7 @@ app.get('/', (request, response) => {
         });
 });
 
-app.get('/:user', (request, response) => {
+app.get('/api/:user', (request, response) => {
     //Query the user
     const { user } = request.params;
     User.findOne({ username: user })
@@ -50,7 +50,7 @@ app.get('/:user', (request, response) => {
 });
 
 //POST request
-app.post('/', (request, response) => {
+app.post('/api', (request, response) => {
 
     const { name, username, email, password } = request.body;
 
@@ -94,7 +94,7 @@ app.post('/', (request, response) => {
 });
 
 //PUT request
-app.put('/', (request, response) => {
+app.put('/api', (request, response) => {
     const { name, username, email, password } = request.body;
     User.updateOne({ username }, {name, email, password})
         .then((user) => {
@@ -115,6 +115,11 @@ app.delete('/', (request, response) => {
         .catch((error) => {
             console.error(error);
         });
+});
+
+//404 handler
+app.use((request, response, next) => {
+    response.status(404).send("Sorry, request don't found 🤔");
 });
 
 app.listen(PORT, () => {
