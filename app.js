@@ -4,7 +4,6 @@ const connectDb = require('./config/db');
 const bodyParser = require('body-parser');
 
 const User = require('./models/User');
-const { request, response } = require('express');
 
 
 dotenv.config({ path: './config/config.env' });
@@ -22,6 +21,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 
 //GET request
+app.get('/',(request, response) => {
+    response.send(`Node API RESTful <br> Go to <a href="http://localhost:${PORT}/api">API</a>`); 
+})
+
 app.get('/api', (request, response) => {
     User.find({}, 'username name email')
         .then((result) => {
