@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const User = require('./models/User');
 
 
+//This import will be relocated into other file
+const hashPassword = require('./components/password');
+
 dotenv.config({ path: './config/config.env' });
 
 const PORT = process.env.PORT || 5000;
@@ -56,7 +59,7 @@ app.get('/api/:user', (request, response) => {
 app.post('/api', (request, response) => {
 
     const { name, username, email, password } = request.body;
-
+    
     //Query if username or email are already used
     User.find({ $or: [ { username }, { email } ] })
         .then((user) => {
@@ -64,18 +67,26 @@ app.post('/api', (request, response) => {
             //If the object is empty the registration is efectuated
             if(Object.keys(user).length === 0) {
                 
-                User.create({
-                    name,
-                    username,
-                    email,
-                    password
-                })
-                .then((user) => {
-                    response.send(`${name} has been added to the database`);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+                //A secure password is generated through the
+                //asynchronous function hashPasword
+                hashPassword(password)
+                    .then((securePassword) => {
+                        //Once the promise is resolve, the user is updated
+                        //with a a secure password
+                        User.create({
+                            name,
+                            username,
+                            email,
+                            password: securePassword
+                        })
+                            .then((user) => {
+                                response.send(`${name} has been added to the database`);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    });
+                
             } else {
                 //If two objects are founded that means the 
                 //username and email are already registered
@@ -109,7 +120,7 @@ app.put('/api', (request, response) => {
 });
 
 //DELETE request
-app.delete('/', (request, response) => {
+app.delete('/api', (request, response) => {
     const { username } = request.body;
     User.deleteOne({ username })
         .then((user) => {
