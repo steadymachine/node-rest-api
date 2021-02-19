@@ -110,13 +110,21 @@ app.post('/api', (request, response) => {
 //PUT request
 app.put('/api', (request, response) => {
     const { name, username, email, password } = request.body;
-    User.updateOne({ username }, {name, email, password})
-        .then((user) => {
-            response.send(`${username} has been updated`)
+    
+    //A secure password is generated with the hashPassword function
+    hashPassword(password)
+        .then((securePassword) => {
+            User.updateOne({ username }, {name, email, password: securePassword})
+                .then((user) => {
+                    response.send(`${username} has been updated`)
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         })
         .catch((error) => {
             console.error(error);
-        });
+        })    
 });
 
 //DELETE request
