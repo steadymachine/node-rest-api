@@ -1,7 +1,7 @@
 # Node API REST
 
 ## Description
-API RESTful which handles GET, POST, PUT and DELETE requests. Developed with [express](https://expressjs.com).
+API RESTful which handles GET, POST, PUT and DELETE requests. Developed with [express](https://expressjs.com), a key aspect of the API is the security, password uniqueness is generated adding a salt in the hashing process.
 
 ## Installation
 
