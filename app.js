@@ -146,7 +146,7 @@ app.delete('/api', (request, response) => {
 
 //404 handler
 app.use((request, response, next) => {
-    response.status(404).send("Sorry, request don't found 🤔");
+    response.status(404).send("Sorry, request was not found 🤔");
 });
 
 app.listen(PORT, () => {
