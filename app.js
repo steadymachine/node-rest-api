@@ -115,9 +115,13 @@ app.put('/api', (request, response) => {
     hashPassword(password)
         .then((securePassword) => {
             User.updateOne({ username }, {name, email, password: securePassword})
-                .then((user) => {
-                    console.log(user)
-                    response.send(`${username} has been updated`)
+                .then((result) => {
+                    //Verify if the PUT action is efectuated
+                    if (result.n === 0) {
+                        response.send(`${username} was not found`);
+                    } else {
+                        response.send(`${username} has been updated`);
+                    }
                 })
                 .catch((error) => {
                     console.error(error);
