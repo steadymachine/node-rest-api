@@ -31,4 +31,4 @@ Run the application in development mode:
 ```
 $ npm run dev
 ```
-Notice at the terminal where is running the application, generally it's running on [http://localhost:3000](http://localhost:3000), and launch it 🚀. Now you can make a GET request from the your favorite web browser or make GET, POST, PUT and DELETE requests from an API request builder like [Postmam](https://www.postman.com).
+Notice at the terminal where is running the application, generally it's running on [http://localhost:3000](http://localhost:3000), and launch it 🚀. Now you can make a GET request from the your favorite web browser or make GET, POST, PUT and DELETE requests from an API request builder like [Postman](https://www.postman.com).
