@@ -116,6 +116,7 @@ app.put('/api', (request, response) => {
         .then((securePassword) => {
             User.updateOne({ username }, {name, email, password: securePassword})
                 .then((user) => {
+                    console.log(user)
                     response.send(`${username} has been updated`)
                 })
                 .catch((error) => {

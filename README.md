@@ -1,7 +1,7 @@
 # Node API REST
 
 ## Description
-API RESTful which handles GET, POST, PUT and DELETE requests. Developed with [express](https://expressjs.com), a key aspect of the API is the security, password uniqueness is generated adding a salt in the hashing process.
+API RESTful which handles GET, POST, PUT and DELETE requests. Developed with the [express](https://expressjs.com) framework and a mongoDB database, a key aspect of the API is the security, password uniqueness is generated adding a salt in the hashing process.
 
 ## Installation
 
@@ -31,4 +31,4 @@ Run the application in development mode:
 ```
 $ npm run dev
 ```
-Notice at the terminal where is running the application, generally it's running on [http://localhost:3000](http://localhost:3000), and launch it 🚀.
+Notice at the terminal where is running the application, generally it's running on [http://localhost:3000](http://localhost:3000), and launch it 🚀. Now you can make a GET request from the your favorite web browser or make GET, POST, PUT and DELETE request from an API request builder like [Postmam](https://www.postman.com).
