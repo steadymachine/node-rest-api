@@ -56,55 +56,45 @@ app.get('/api/:user', (request, response) => {
 });
 
 //POST request
-app.post('/api', (request, response) => {
+app.post('/api', async (request, response) => {
 
     const { name, username, email, password } = request.body;
     
     //Query if username or email are already used
-    User.find({ $or: [ { username }, { email } ] })
-        .then((user) => {
+    const user = await User.find({ $or: [ { username }, { email } ] });
 
-            //If the object is empty the registration is efectuated
-            if(Object.keys(user).length === 0) {
-                
-                //A secure password is generated through the
-                //asynchronous function hashPasword
-                hashPassword(password)
-                    .then((securePassword) => {
-                        //Once the promise is resolve, the user is added
-                        //with a a secure password
-                        User.create({
-                            name,
-                            username,
-                            email,
-                            password: securePassword
-                        })
-                            .then((user) => {
-                                response.send(`${name} has been added to the database`);
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            });
-                    });
-                
-            } else {
-                //If two objects are founded that means the 
-                //username and email are already registered
-                if(user.length > 1) {
-                    response.send(`username and email already registered!`);
-                } else {
-                    //Verify either if the username is already registered or the email
-                    if(user[0].username === username) {
-                        response.send(`username already registered.`);
-                    } else {
-                        response.send(`email already registered.`);
-                    }
-                }
-            }
+    //If the object is empty the registration is efectuated
+    if (Object.keys(user).length === 0) {
+        //A secure password is generated through the
+        //asynchronous function hashPasword
+        const securePassword = await hashPassword(password);
+        
+        await User.create({
+            name,
+            username,
+            email,
+            password: securePassword
         })
-        .catch((error) => {
-            console.error(error);
-        });
+            .then((user) => {
+                response.send(`${name} has been added to the database`);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    } else {
+        //If two objects are founded that means the 
+        //username and email are already registered
+        if(user.length > 1) {
+            response.send(`username and email already registered!`);
+        } else {
+            //Verify either if the username is already registered or the email
+            if(user[0].username === username) {
+                response.send(`username already registered.`);
+            } else {
+                response.send(`email already registered.`);
+            }
+        }
+    }
 });
 
 //PUT request
