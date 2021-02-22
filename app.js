@@ -98,28 +98,20 @@ app.post('/api', async (request, response) => {
 });
 
 //PUT request
-app.put('/api', (request, response) => {
+app.put('/api', async (request, response) => {
     const { name, username, email, password } = request.body;
     
     //A secure password is generated with the hashPassword function
-    hashPassword(password)
-        .then((securePassword) => {
-            User.updateOne({ username }, {name, email, password: securePassword})
-                .then((result) => {
-                    //Verify if the PUT action is efectuated
-                    if (result.n === 0) {
-                        response.send(`${username} was not found`);
-                    } else {
-                        response.send(`${username} has been updated`);
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-        })
-        .catch((error) => {
-            console.error(error);
-        })    
+    const securePassword = await hashPassword(password);
+
+    const update = await User.updateOne({ username }, {name, email, password: securePassword});
+
+    //Verify if the PUT action is efectuated
+    if (update.n === 0) {
+        response.send(`${username} was not found`);
+    } else {
+        response.send(`${username} has been updated`);
+    }   
 });
 
 //DELETE request
