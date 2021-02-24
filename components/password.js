@@ -10,7 +10,7 @@ const hashPassword = async (password) => {
     try {
         return (await cryptoPromise(password, salt, 100000, 512, 'sha512')).toString('hex');    
     } catch (error) {
-        console.error(error);
+        throw error;
     }
     
 }

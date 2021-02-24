@@ -60,41 +60,45 @@ app.post('/api', async (request, response) => {
 
     const { name, username, email, password } = request.body;
     
-    //Query if username or email are already used
-    const user = await User.find({ $or: [ { username }, { email } ] });
+    try {
+        //Query if username or email are already used
+        const user = await User.find({ $or: [ { username }, { email } ] });
 
-    //If the object is empty the registration is efectuated
-    if (Object.keys(user).length === 0) {
-        //A secure password is generated through the
-        //asynchronous function hashPasword
-        const securePassword = await hashPassword(password);
-        
-        await User.create({
-            name,
-            username,
-            email,
-            password: securePassword
-        })
-            .then((user) => {
-                response.send(`${name} has been added to the database`);
+        //If the object is empty the registration is efectuated
+        if (Object.keys(user).length === 0) {
+            //A secure password is generated through the
+            //asynchronous function hashPasword
+            const securePassword = await hashPassword(password);
+            
+            await User.create({
+                name,
+                username,
+                email,
+                password: securePassword
             })
-            .catch((error) => {
-                console.log(error);
-            });
-    } else {
-        //If two objects are founded that means the 
-        //username and email are already registered
-        if(user.length > 1) {
-            response.send(`username and email already registered!`);
+                .then((user) => {
+                    response.send(`${name} has been added to the database`);
+                })
+                .catch((error) => {
+                    throw error;
+                });
         } else {
-            //Verify either if the username is already registered or the email
-            if(user[0].username === username) {
-                response.send(`username already registered.`);
+            //If two objects are founded that means the 
+            //username and email are already registered
+            if(user.length > 1) {
+                response.send(`username and email already registered!`);
             } else {
-                response.send(`email already registered.`);
+                //Verify either if the username is already registered or the email
+                if(user[0].username === username) {
+                    response.send(`username already registered.`);
+                } else {
+                    response.send(`email already registered.`);
+                }
             }
         }
-    }
+    } catch (error) {
+        response.send(`Oops, an error has occurred... 🥺`);
+    } 
 });
 
 //PUT request
