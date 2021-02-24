@@ -7,7 +7,7 @@ API RESTful which handles GET, POST, PUT and DELETE requests. Developed with the
 
 Clone the repo:
 ```
-$ git clone https://github.com/partofjohan/noderestapi.git
+$ git clone https://github.com/partofjohan/node-rest-api.git
 ```
 
 Create the config.env file:
