@@ -18,9 +18,9 @@ $ touch config/config.env
 Add the PORT and MONGO_URI environment variables into the config.env file:
 ```
 PORT = 3000
-MONGO_URI = mongodb+srv://<admin>:<password>@<clusterAddress>/databaseName?retryWrites=true&w=majority   
+MONGO_URI = mongodb+srv://<admin>:<password>@<clusterAddress>/<dbName>?retryWrites=true&w=majority   
 ```
-Replace ```<admin>```, ```<password>```, ```<cluterAddress>``` and ```<databaseName>``` with your mongoDB cluster credentials.
+Replace ```<admin>```, ```<password>```, ```<cluterAddress>``` and ```<dbName>``` with your mongoDB cluster credentials.
 
 Install the npm packages:
 ```
