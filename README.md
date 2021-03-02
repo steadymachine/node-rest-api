@@ -10,8 +10,10 @@ Clone the repo:
 $ git clone https://github.com/partofjohan/node-rest-api.git
 ```
 
-Move to the project folder
+Move to the project folder:
+```
 $ cd node-rest-api
+```
 
 Create the config.env file:
 ```
