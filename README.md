@@ -1,7 +1,7 @@
-# Node API REST
+# Node REST API
 
 ## Description
-API RESTful which handles GET, POST, PUT and DELETE requests. Developed with the [express](https://expressjs.com) framework and mongoDB, a key aspect of the API is the security, password uniqueness is generated adding a salt in the hashing process.
+RESTful API which handles GET, POST, PUT and DELETE requests. Developed with the [express](https://expressjs.com) framework and mongoDB, a key aspect of the API is the security, password uniqueness is generated adding a salt in the hashing process.
 
 ## Installation
 
