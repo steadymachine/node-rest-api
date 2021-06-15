@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDb = require('./config/db');   
@@ -47,7 +49,12 @@ app.get('/api/user/:user', (request, response) => {
             if(!result) {
                 response.send(`${user} was not found`);
             } else {
-                response.json(result);
+                let objectResponse = { 
+                    name: result.name,
+                    username: result.username,
+                    email: result.email
+                };
+                response.json(objectResponse);
             }
         })
         .catch((error) => {
