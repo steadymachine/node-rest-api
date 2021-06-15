@@ -38,4 +38,4 @@ $ npm run dev
 ```
 Notice at the terminal where is running the application, generally it's running on [http://localhost:3000](http://localhost:3000), and launch it 🚀. Now you can make a GET request from your favorite web browser or make GET, POST, PUT and DELETE requests from an API request builder like [Postman](https://www.postman.com).
 
-**Disclaimer**: POST request only handle a '_application/x-www-form-urlencoded_' type format.
+**Disclaimer**: POST request only handle a '_x-www-form-urlencoded_' type format.
