@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //GET request
 app.get('/',(request, response) => {
-    response.send(`Node API RESTful <br> Go to <a href="http://localhost:${PORT}/api">API</a>`); 
+    response.send(`Node API RESTful <br> Go to <a href="http://localhost:${PORT}/api/users">API</a>`); 
 })
 
-app.get('/api', (request, response) => {
+app.get('/api/users', (request, response) => {
     User.find({}, 'username name email')
         .then((result) => {
             response.json(result); 
@@ -38,7 +38,7 @@ app.get('/api', (request, response) => {
         });
 });
 
-app.get('/api/:user', (request, response) => {
+app.get('/api/user/:user', (request, response) => {
     //Query the user
     const { user } = request.params;
     User.findOne({ username: user })
@@ -56,7 +56,7 @@ app.get('/api/:user', (request, response) => {
 });
 
 //POST request
-app.post('/api', async (request, response) => {
+app.post('/api/users', async (request, response) => {
 
     const { name, username, email, password } = request.body;
     
@@ -102,7 +102,7 @@ app.post('/api', async (request, response) => {
 });
 
 //PUT request
-app.put('/api', async (request, response) => {
+app.put('/api/users', async (request, response) => {
     try {
         const { name, username, email, password } = request.body;
     
@@ -124,7 +124,7 @@ app.put('/api', async (request, response) => {
 });
 
 //DELETE request
-app.delete('/api', (request, response) => {
+app.delete('/api/users', (request, response) => {
     const { username } = request.body;
     User.deleteOne({ username })
         .then((user) => {
