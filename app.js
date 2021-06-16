@@ -40,10 +40,10 @@ app.get('/api/users', (request, response) => {
         });
 });
 
-app.get('/api/user/:user', (request, response) => {
+app.get('/api/user/:username', (request, response) => {
     //Query the user
-    const { user } = request.params;
-    User.findOne({ username: user })
+    const { username } = request.params;
+    User.findOne({ username })
         .then((result) => {
             //Verify if any user was found
             if(!result) {
