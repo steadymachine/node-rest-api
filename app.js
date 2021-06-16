@@ -135,7 +135,7 @@ app.delete('/api/users', (request, response) => {
     const { username } = request.body;
     User.deleteOne({ username })
         .then((user) => {
-            response.send(`${user} has been removed completely from the database`);
+            response.send(`${username} has been removed completely from the database`);
         })
         .catch((error) => {
             console.error(error);
